@@ -1,0 +1,11 @@
+//mail
+<p>Facebook is looking for artists to create sticker packs! Interested? Email your art portfolio and contact information to <a href=\"mailto:stickers@fb.com\" rel=\"noreferrer\">stickers@fb.com</a>. Please include “Stickers Art Submission” in the subject line.</p>
+
+//link
+<p>Hello everyone, </p>\n\n<p>Sharing more stuff from the Process we did for Zora. This is how we built the \"Tenants\" page. Here you can see who is renting out your space and manage their application. You can see the evolution and information build up from first to last screen. We did around 10-ish screens for this page to really find the best possible solution and right information structure for the best UX. </p>\n\n<p>Design <a href=\"https://dribbble.com/757683\">@Filip Justić</a></p>\n\n<p>Give us a follow if you have time to spare, we appreciate it! </p>\n\n<p><a href=\"https://twitter.com/BalkanBros\" rel=\"nofollow noreferrer\">Twitter,</a> <a href=\"https://www.instagram.com/balkanbrothers.agency/\" rel=\"nofollow noreferrer\">Instagram,</a> <a href=\"https://www.facebook.com/balkanbrothers.agency/\" rel=\"nofollow noreferrer\">Facebook,</a> or <a href=\"https://www.behance.net/balkan-brothers\" rel=\"nofollow noreferrer\">Behance</a></p>\n\n<p></p>
+
+//link
+<p>No. 7!</p>\n\n<p><a href=\"http://www.10x2016.com\" rel=\"noreferrer\">www.10x2016.com</a></p>
+
+//shot
+<p>I was so inspired by @Sergej Tucakov 's Night Butterfly (<a href=\"https://dribbble.com/shots/3021375-Night-Butterfly\" rel=\"noreferrer\">https://dribbble.com/shots/3021375-Night-Butterfly</a>), I decided to copy his style and make few other bugs I am animating right now. </p>

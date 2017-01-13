@@ -1,0 +1,64 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - Appirater (2.0.5)
+  - DZNEmptyDataSet (1.8.1)
+  - GVUserDefaults (1.0.2)
+  - JazzHands (2.0.8)
+  - JDStatusBarNotification (1.5.4)
+  - Masonry (1.0.2)
+  - NXOAuth2Client (1.2.8)
+  - ODRefreshControl (1.2)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
+
+DEPENDENCIES:
+  - AFNetworking (~> 3.1.0)
+  - Appirater
+  - DZNEmptyDataSet (~> 1.8.1)
+  - GVUserDefaults
+  - JazzHands (~> 2.0.8)
+  - JDStatusBarNotification (~> 1.5.2)
+  - Masonry (~> 1.0.0)
+  - NXOAuth2Client (~> 1.2.8)
+  - ODRefreshControl (~> 1.2)
+  - ReactiveCocoa (~> 2.5)
+  - YYKit
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  Appirater: e7c0a47fb67ee5041ce8479e6ba960927fb40264
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  GVUserDefaults: 52d48cf8ba578b40a1a76312b196dfc9134ba36a
+  JazzHands: 355dc5c2b6fc38ee460d0ed7836c69539263f477
+  JDStatusBarNotification: d47dded0594a50a39c84a2cc5aa356fcf6750d0e
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  NXOAuth2Client: 98c4d4c594edd2b289cfc34a8928653e1dab7adf
+  ODRefreshControl: 907e6149d72dde488d5917ccfabee5bd8d711a20
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+
+PODFILE CHECKSUM: 51fa27321357d0c19f73d77fb54d7231b0c8709e
+
+COCOAPODS: 1.0.0
