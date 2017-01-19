@@ -21,7 +21,7 @@
 
 #pragma mark - Auth
 
-- (RACSignal *)authorizeWithWebView:(UIWebView *)webView;
+- (void)authWithAccessToken:(NSString *)accessToken;
 
 #pragma mark - API methods
 

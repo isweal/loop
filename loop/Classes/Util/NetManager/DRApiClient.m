@@ -100,29 +100,13 @@ static dispatch_once_t onceToken;
 
 #pragma mark - OAuth calls
 
-- (RACSignal *)authorizeWithWebView:(UIWebView *)webView {
-    @weakify(self)
-    return [[RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
-        @strongify(self)
-        [self.oauthManager authorizeWithWebView:webView settings:self.settings authHandler:^(NXOAuth2Account *account, NSError *error) {
-            @strongify(self)
-            if (!error && account) {
-                if (account.accessToken.accessToken.length > 0) {
-                    self.accessToken = account.accessToken.accessToken;
-                    self.userAuthorized = YES;
-                    [subscriber sendNext:@(YES)];
-                    [subscriber sendCompleted];
-                    [JDStatusBarNotification showWithStatus:@"auth success" dismissAfter:2];
-                } else {
-                    [subscriber sendError:[NSError errorWithDomain:@"token error" code:66 userInfo:nil]];
-                }
-            } else {
-                [self resetAccessToken];
-                [subscriber sendError:error];
-            }
-        }];
-        return nil;
-    }] replayLazily];
+- (void)authWithAccessToken:(NSString *)accessToken {
+    if (accessToken.length > 0) {
+        self.accessToken = accessToken;
+        self.userAuthorized = YES;
+    } else {
+        [self resetAccessToken];
+    }
 }
 
 - (void)logout {

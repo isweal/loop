@@ -6,12 +6,13 @@
 //  Copyright (c) 2016 DOOM. All rights reserved.
 //
 
+#import "DRWebViewModel.h"
 
-@interface DRLoginViewModel : DRViewModel
+@interface DRLoginViewModel : DRWebViewModel <UIWebViewDelegate>
 
-@property (nonatomic, strong) RACCommand *authCommand;
-@property (nonatomic, strong) RACCommand *cancelCommand;
+@property(nonatomic, strong) RACCommand *authCommand;
+@property(nonatomic, strong) RACCommand *cancelCommand;
 
-@property (nonatomic, strong) RACSignal *authSuccessSignal;
+@property(nonatomic, strong) RACSignal *authSuccessSignal;
 
 @end

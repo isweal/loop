@@ -15,7 +15,6 @@
 @interface DRLoginViewController ()
 
 @property(nonatomic, strong, readonly) DRLoginViewModel *viewModel;
-@property(strong, nonatomic) UIWebView *webView;
 
 @end
 
@@ -25,11 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _webView = [[UIWebView alloc] init];
-    [self.view addSubview:_webView];
-    [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
+    self.delegate = self.viewModel;
 
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
     cancelItem.rac_command = self.viewModel.cancelCommand;

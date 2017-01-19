@@ -18,8 +18,6 @@
 @property(nonatomic, strong) UIBarButtonItem *stopBarButtonItem;
 @property(nonatomic, strong) UIBarButtonItem *actionBarButtonItem;
 
-@property(nonatomic, strong) UIWebView *webView;
-
 @end
 
 
@@ -42,9 +40,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSAssert(self.request, @"request must not be nil.");
+//    NSAssert(self.request, @"request must not be nil.");
     self.view = self.webView;
-    [self loadRequest:self.request];
+    if(self.request){
+        [self loadRequest:self.request];
+    }
     [self updateToolbarItems];
 }
 
