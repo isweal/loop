@@ -19,14 +19,13 @@
 @property(strong, nonatomic) id <NSObject> authCompletionObserver;
 @property(strong, nonatomic) id <NSObject> authErrorObserver;
 
-@property(copy, nonatomic) NSString *redirectUrl;
 @property(copy, nonatomic) DROAuthHandler authHandler;
 
 @end
 
 @implementation DRLoginViewModel
 
--(void)dealloc{
+- (void)dealloc {
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     if (self.authCompletionObserver) [notificationCenter removeObserver:self.authCompletionObserver];
     if (self.authErrorObserver) [notificationCenter removeObserver:self.authErrorObserver];
@@ -39,25 +38,7 @@
     @weakify(self)
     self.authCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(UIWebView *webView) {
         @strongify(self)
-        return [[RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
-            @strongify(self)
-            [self authorizeWithWebView:webView settings:[DRApiClient sharedClient].settings authHandler:^(NXOAuth2Account *account, NSError *error) {
-                if (!error && account) {
-                    if (account.accessToken.accessToken.length > 0) {
-                        [[DRApiClient sharedClient] authWithAccessToken:account.accessToken.accessToken];
-                        [subscriber sendNext:@(YES)];
-                        [subscriber sendCompleted];
-                        [JDStatusBarNotification showWithStatus:@"auth success" dismissAfter:2];
-                    } else {
-                        [subscriber sendError:[NSError errorWithDomain:@"token error" code:66 userInfo:nil]];
-                    }
-                } else {
-                    [[DRApiClient sharedClient] authWithAccessToken:nil];
-                    [subscriber sendError:error];
-                }
-            }];
-            return nil;
-        }] takeUntil:self.rac_willDeallocSignal];
+        return [[self authorizeWithWebView:webView] takeUntil:self.rac_willDeallocSignal];
     }];
 
     // https://github.com/ReactiveCocoa/ReactiveCocoa/issues/1392
@@ -126,6 +107,29 @@
 
 #pragma mark - OAuth2 Logic
 
+- (RACSignal *)authorizeWithWebView:(UIWebView *)webView {
+    @weakify(self)
+    return [[RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
+        @strongify(self)
+        [self authorizeWithWebView:webView settings:[DRApiClient sharedClient].settings authHandler:^(NXOAuth2Account *account, NSError *error) {
+            if (!error && account) {
+                if (account.accessToken.accessToken.length > 0) {
+                    [[DRApiClient sharedClient] authWithAccessToken:account.accessToken.accessToken];
+                    [subscriber sendNext:@(YES)];
+                    [subscriber sendCompleted];
+                    [JDStatusBarNotification showWithStatus:@"auth success" dismissAfter:2];
+                } else {
+                    [subscriber sendError:[NSError errorWithDomain:@"token error" code:66 userInfo:nil]];
+                }
+            } else {
+                [[DRApiClient sharedClient] authWithAccessToken:nil];
+                [subscriber sendError:error];
+            }
+        }];
+        return nil;
+    }] replayLazily];
+}
+
 - (void)authorizeWithWebView:(UIWebView *)webView settings:(DRApiClientSettings *)settings authHandler:(DROAuthHandler)authHandler {
     self.authHandler = authHandler;
 
@@ -167,46 +171,6 @@
     [self requestAuthorizationWebView:webView withSettings:settings];
 }
 
-#pragma mark - WebView Delegate
-
-- (BOOL)isUrlRedirectUrl:(NSURL *)url {
-    NSURL *authUrl = [NSURL URLWithString:self.redirectUrl];
-    return ([[authUrl host] isEqualToString:url.host] && [[authUrl scheme] isEqualToString:url.scheme]);
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if ([self isUrlRedirectUrl:request.URL]) {
-        webView.userInteractionEnabled = YES;
-        NSDictionary *params = [self paramsFromUrl:request.URL];
-        if ([params objectForKey:@"code"]) {
-            [[[NXOAuth2AccountStore sharedStore] accountsWithAccountType:kIDMOAccountType] enumerateObjectsUsingBlock:^(NXOAuth2Account *obj, NSUInteger idx, BOOL *stop) {
-                [[NXOAuth2AccountStore sharedStore] removeAccount:obj];
-            }];
-            [[NXOAuth2AccountStore sharedStore] handleRedirectURL:request.URL];
-        } else {
-            webView.userInteractionEnabled = NO;
-        }
-        return NO;
-    } else if ([request.URL.absoluteString rangeOfString:kUnacceptableWebViewUrl options:NSCaseInsensitiveSearch].location != NSNotFound) {
-        NSError *error = [NSError errorWithDomain:kDROAuthErrorDomain code:kDROAuthErrorCodeUnacceptableRedirectUrl userInfo:@{NSLocalizedDescriptionKey: kDROAuthErrorUnacceptableRedirectUrlDescription}];
-        [self finalizeAuthWithAccount:nil error:error];
-        return NO;
-    }
-
-    return YES;
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    NSString *urlString = error.userInfo[NSURLErrorFailingURLStringErrorKey];
-    if (urlString && [self isUrlRedirectUrl:[NSURL URLWithString:urlString]]) {
-        // nop
-    } else {
-        // 有时候莫名奇妙失败了就。。。
-//        [self finalizeAuthWithAccount:nil error:error];
-    }
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}
-
 #pragma mark - Helpers
 
 - (void)finalizeAuthWithAccount:(NXOAuth2Account *)account error:(NSError *)error {
@@ -239,18 +203,6 @@
         [[NSURLCache sharedURLCache] removeAllCachedResponses];
         [webView loadRequest:request];
     }];
-}
-
-
-- (NSMutableDictionary *)paramsFromUrl:(NSURL *)url {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    for (NSString *param in [[url query] componentsSeparatedByString:@"&"]) {
-        NSArray *elts = [param componentsSeparatedByString:@"="];
-        if ([elts count] == 2) {
-            [params setObject:[elts lastObject] forKey:[elts firstObject]];
-        }
-    }
-    return params;
 }
 
 @end

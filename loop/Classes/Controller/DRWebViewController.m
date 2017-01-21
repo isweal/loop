@@ -13,7 +13,7 @@
 #import "NJKWebViewProgress.h"
 #import "NJKWebViewProgressView.h"
 
-@interface DRWebViewController () <UIWebViewDelegate>
+@interface DRWebViewController ()
 
 @property(nonatomic, strong, readonly) DRWebViewModel *viewModel;
 

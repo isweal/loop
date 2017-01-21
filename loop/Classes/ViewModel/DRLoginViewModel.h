@@ -8,11 +8,17 @@
 
 #import "DRWebViewModel.h"
 
-@interface DRLoginViewModel : DRWebViewModel <UIWebViewDelegate>
+@class NXOAuth2Account;
+
+@interface DRLoginViewModel : DRWebViewModel
 
 @property(nonatomic, strong) RACCommand *authCommand;
 @property(nonatomic, strong) RACCommand *cancelCommand;
 
 @property(nonatomic, strong) RACSignal *authSuccessSignal;
+
+@property(copy, nonatomic) NSString *redirectUrl;
+
+- (void)finalizeAuthWithAccount:(NXOAuth2Account *)account error:(NSError *)error;
 
 @end

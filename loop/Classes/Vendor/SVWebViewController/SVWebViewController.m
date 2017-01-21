@@ -10,7 +10,7 @@
 #import "SVWebViewControllerActivitySafari.h"
 #import "SVWebViewController.h"
 
-@interface SVWebViewController () <UIWebViewDelegate>
+@interface SVWebViewController ()
 
 @property(nonatomic, strong) UIBarButtonItem *backBarButtonItem;
 @property(nonatomic, strong) UIBarButtonItem *forwardBarButtonItem;

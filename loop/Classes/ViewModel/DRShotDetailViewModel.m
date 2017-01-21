@@ -143,14 +143,11 @@
             @weakify(viewModel)
             return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
                 @strongify(viewModel)
-                @weakify(subscriber)
                 [viewModel.cancelCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(id x) {
-                    @strongify(subscriber)
                     [subscriber sendError:nil];
                 }];
 
                 [viewModel.authSuccessSignal subscribeNext:^(NSNumber *isAuth) {
-                    @strongify(subscriber)
                     if (isAuth.boolValue) {
                         [subscriber sendNext:@"auth"];
                     }
@@ -158,7 +155,6 @@
                 }];
 
                 [viewModel.authCommand.errors subscribeNext:^(NSError *error) {
-                    @strongify(subscriber)
                     [subscriber sendError:error];
                 }];
                 return (RACDisposable *) nil;
