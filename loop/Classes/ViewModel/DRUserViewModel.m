@@ -132,7 +132,7 @@
             self.shots = x;
             self.shouldInfiniteScrolling = self.shots.count >= kDefaultShotsPerPageNumber;
             if (self.page == 1 && self.shots.count > 0) {
-                self.userHeaderViewModel.showShotUrl = ((DRShot *) self.shots[0]).images.normal;
+                self.userHeaderViewModel.showShot = ((DRShot *) self.shots[0]).images.normal;
             }
         }
     }];

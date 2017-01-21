@@ -58,14 +58,22 @@
     self.viewModel = viewModel;
 
     @weakify(self)
-    [[RACObserve(self.viewModel, showShotUrl)
+    [[[[RACObserve(self.viewModel, showShot)
             takeUntil:viewModel.reuse]
-            subscribeNext:^(NSString *showShotUrl) {
+            filter:^BOOL(NSString *showShot) {
+                return showShot.length > 0;
+            }]
+            map:^id(NSString *showShot) {
+                return [NSURL URLWithString:viewModel.showShot];
+            }]
+            subscribeNext:^(NSURL *showShotUrl) {
                 @strongify(self)
-                [self.backImageView setImageWithURL:[NSURL URLWithString:viewModel.showShotUrl] placeholder:nil
+                [self.backImageView setImageWithURL:showShotUrl placeholder:nil
                                             options:YYWebImageOptionSetImageWithFadeAnimation
-                                            manager:[DRHelper avatarImageManager]
-                                           progress:nil transform:nil completion:nil];
+                                         completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
+                                             @strongify(self)
+                                             self.backImageView.image = [image imageByBlurRadius:20 tintColor:[UIColor colorWithWhite:0.22 alpha:0.45] tintMode:kCGBlendModeNormal saturation:1.8 maskImage:nil];
+                                         }];
             }];
 
     [[RACObserve(self.viewModel, contentOffsetY)

@@ -13,7 +13,7 @@
 @property(nonatomic, strong) RACSignal *reuse;
 
 @property(nonatomic, strong) DRUser *user;
-@property(nonatomic, strong) NSString *showShotUrl;
+@property(nonatomic, strong) NSString *showShot;
 @property(nonatomic, assign) CGFloat contentOffsetY;
 @property(nonatomic, assign) BOOL isFollow;
 
