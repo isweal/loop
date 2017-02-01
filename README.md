@@ -15,9 +15,9 @@ hope you can understand my poor english.
 - [x] fix the process of login.
 - [x] fix cycle retain of login.
 - [x] add comment to shot, no test.
-- [ ] improve blurView on the *userHeaderView*.
+- [x] improve blurView on the *userHeaderView*.
 - [ ] add night theme.
-- [ ] login with SVWebViewController.
+- [x] login with SVWebViewController.
 - [ ] add some loading animate.
 
 ## License

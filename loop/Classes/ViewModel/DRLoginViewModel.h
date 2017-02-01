@@ -6,12 +6,19 @@
 //  Copyright (c) 2016 DOOM. All rights reserved.
 //
 
+#import "DRWebViewModel.h"
 
-@interface DRLoginViewModel : DRViewModel
+@class NXOAuth2Account;
 
-@property (nonatomic, strong) RACCommand *authCommand;
-@property (nonatomic, strong) RACCommand *cancelCommand;
+@interface DRLoginViewModel : DRWebViewModel
 
-@property (nonatomic, strong) RACSignal *authSuccessSignal;
+@property(nonatomic, strong) RACCommand *authCommand;
+@property(nonatomic, strong) RACCommand *cancelCommand;
+
+@property(nonatomic, strong) RACSignal *authSuccessSignal;
+
+@property(copy, nonatomic) NSString *redirectUrl;
+
+- (void)finalizeAuthWithAccount:(NXOAuth2Account *)account error:(NSError *)error;
 
 @end

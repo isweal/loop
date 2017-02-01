@@ -33,9 +33,13 @@
     DRShot *shot = self.viewModel.shot;
     if(shot){
         _gifSymBol.hidden = ![[shot.images.show pathExtension] isEqualToString:@"gif"];
-        [_shotImageView setImageWithURL:[NSURL URLWithString:shot.images.normal] placeholder:nil
-                                options:YYWebImageOptionSetImageWithFadeAnimation
-                                manager:[DRHelper avatarImageManager] progress:nil transform:nil completion:nil];
+        @weakify(self)
+        [self.shotImageView setImageWithURL:[NSURL URLWithString:shot.images.normal] placeholder:nil
+                                    options:YYWebImageOptionSetImageWithFadeAnimation
+                                 completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
+                                     @strongify(self)
+                                     self.shotImageView.image = [image imageByRoundCornerRadius:10];
+                                 }];
         [_userImageView setImageWithURL:[NSURL URLWithString:shot.user.avatar_url] placeholder:nil
                                 options:YYWebImageOptionSetImageWithFadeAnimation
                                 manager:[DRHelper avatarImageManager] progress:nil transform:nil completion:nil];

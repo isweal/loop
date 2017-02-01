@@ -52,7 +52,6 @@ static NSString *const kShotsCacheKey = @"shotsCache";
     }];
 
     self.testCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
-        @strongify(self)
         return [RACSignal empty];
     }];
 
@@ -68,14 +67,11 @@ static NSString *const kShotsCacheKey = @"shotsCache";
             @weakify(viewModel)
             return [RACSignal createSignal:^RACDisposable *(id <RACSubscriber> subscriber) {
                 @strongify(viewModel)
-                @weakify(subscriber)
                 [viewModel.cancelCommand.executionSignals.switchToLatest.deliverOnMainThread subscribeNext:^(id x) {
-                    @strongify(subscriber)
                     [subscriber sendError:nil];
                 }];
 
                 [viewModel.authSuccessSignal subscribeNext:^(NSNumber *isAuth) {
-                    @strongify(subscriber)
                     if (isAuth.boolValue) {
                         [subscriber sendNext:@"auth"];
                     }
@@ -83,7 +79,6 @@ static NSString *const kShotsCacheKey = @"shotsCache";
                 }];
 
                 [viewModel.authCommand.errors subscribeNext:^(NSError *error) {
-                    @strongify(subscriber)
                     [subscriber sendError:error];
                 }];
                 return (RACDisposable *) nil;

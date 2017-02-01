@@ -10,15 +10,13 @@
 #import "SVWebViewControllerActivitySafari.h"
 #import "SVWebViewController.h"
 
-@interface SVWebViewController () <UIWebViewDelegate>
+@interface SVWebViewController ()
 
 @property(nonatomic, strong) UIBarButtonItem *backBarButtonItem;
 @property(nonatomic, strong) UIBarButtonItem *forwardBarButtonItem;
 @property(nonatomic, strong) UIBarButtonItem *refreshBarButtonItem;
 @property(nonatomic, strong) UIBarButtonItem *stopBarButtonItem;
 @property(nonatomic, strong) UIBarButtonItem *actionBarButtonItem;
-
-@property(nonatomic, strong) UIWebView *webView;
 
 @end
 
@@ -42,9 +40,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSAssert(self.request, @"request must not be nil.");
+//    NSAssert(self.request, @"request must not be nil.");
     self.view = self.webView;
-    [self loadRequest:self.request];
+    if(self.request){
+        [self loadRequest:self.request];
+    }
     [self updateToolbarItems];
 }
 

@@ -8,9 +8,11 @@
 
 #import "DRViewController.h"
 
-@interface SVWebViewController : DRViewController
+@interface SVWebViewController : DRViewController <UIWebViewDelegate>
 
-@property (nonatomic, strong) NSURLRequest *request;
-@property (nonatomic, weak) id<UIWebViewDelegate> delegate;
+@property(nonatomic, strong) NSURLRequest *request;
+@property(nonatomic, weak) id <UIWebViewDelegate> delegate;
+
+@property(nonatomic, strong) UIWebView *webView;
 
 @end
