@@ -2,6 +2,10 @@
 
 loop is a 3rd-party app for [dribbble](https://dribbble.com/).
 
+# ScreenShot
+
+![main](https://github.com/isweal/loop/blob/master/ScreenShots/main.gif)
+
 ## Usage
 
 clone the repo to your disk and before run, you will find it miss a file which should be named *DRAuthConstants.m*.you should register a new application in the dribble and write these infos to it.
