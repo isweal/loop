@@ -69,10 +69,12 @@
             subscribeNext:^(NSURL *showShotUrl) {
                 @strongify(self)
                 [self.backImageView setImageWithURL:showShotUrl placeholder:nil
-                                            options:YYWebImageOptionSetImageWithFadeAnimation
+                                            options:YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionAvoidSetImage
                                          completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
-                                             @strongify(self)
-                                             self.backImageView.image = [image imageByBlurRadius:20 tintColor:[UIColor colorWithWhite:0.22 alpha:0.45] tintMode:kCGBlendModeNormal saturation:1.8 maskImage:nil];
+                                             if (image) {
+                                                 @strongify(self)
+                                                 self.backImageView.image = [image imageByBlurRadius:20 tintColor:[UIColor colorWithWhite:0.22 alpha:0.45] tintMode:kCGBlendModeNormal saturation:1.8 maskImage:nil];
+                                             }
                                          }];
             }];
 

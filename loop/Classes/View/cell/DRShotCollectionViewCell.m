@@ -35,10 +35,12 @@
         _gifSymBol.hidden = ![[shot.images.show pathExtension] isEqualToString:@"gif"];
         @weakify(self)
         [self.shotImageView setImageWithURL:[NSURL URLWithString:shot.images.normal] placeholder:nil
-                                    options:YYWebImageOptionSetImageWithFadeAnimation
+                                    options:YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionAvoidSetImage
                                  completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
-                                     @strongify(self)
-                                     self.shotImageView.image = [image imageByRoundCornerRadius:10];
+                                     if(image){
+                                         @strongify(self)
+                                         self.shotImageView.image = [image imageByRoundCornerRadius:10];
+                                     }
                                  }];
         [_userImageView setImageWithURL:[NSURL URLWithString:shot.user.avatar_url] placeholder:nil
                                 options:YYWebImageOptionSetImageWithFadeAnimation
