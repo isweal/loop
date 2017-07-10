@@ -61,6 +61,10 @@
     [[[[RACObserve(self.viewModel, showShot)
             takeUntil:viewModel.reuse]
             filter:^BOOL(NSString *showShot) {
+                if(showShot.length == 0) {
+                    @strongify(self)
+                    self.backImageView.image = [[UIImage imageWithColor:[UIColor grayColor]] imageByBlurRadius:20 tintColor:[UIColor colorWithWhite:0.22 alpha:0.45] tintMode:kCGBlendModeNormal saturation:1.8 maskImage:nil];
+                }
                 return showShot.length > 0;
             }]
             map:^id(NSString *showShot) {
@@ -68,7 +72,7 @@
             }]
             subscribeNext:^(NSURL *showShotUrl) {
                 @strongify(self)
-                [self.backImageView setImageWithURL:showShotUrl placeholder:nil
+                [self.backImageView setImageWithURL:showShotUrl placeholder:self.backImageView.image
                                             options:YYWebImageOptionSetImageWithFadeAnimation | YYWebImageOptionAvoidSetImage
                                          completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
                                              if (image) {

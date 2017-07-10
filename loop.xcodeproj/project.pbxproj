@@ -639,8 +639,8 @@
 				77BF394F1D6EBCDB004A85F2 /* NSObject+ResponseCache.m */,
 				BE49D0345AEA2FC5B2651ADC /* NSDate+TimeAgo.h */,
 				BE49D174163078CAE21CE211 /* NSDate+TimeAgo.m */,
-				BE49D0AE1F606A0314514E99 /* UIButton+quickBuild.m */,
 				BE49D05CB56DAB64E21E725C /* UIButton+QuickBuild.h */,
+				BE49D0AE1F606A0314514E99 /* UIButton+quickBuild.m */,
 				775EA3861E1F6ABC0081C2C4 /* UIView+Common.h */,
 				775EA3871E1F6ABC0081C2C4 /* UIView+Common.m */,
 			);
